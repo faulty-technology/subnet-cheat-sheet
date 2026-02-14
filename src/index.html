@@ -31,8 +31,7 @@
 
 			h2 {
 				color: #444;
-				margin-top: 40px;
-				margin-bottom: 20px;
+				margin: 0;
 				border-bottom: 2px solid #ddd;
 				padding-bottom: 8px;
 			}
@@ -40,8 +39,13 @@
 			table {
 				width: 100%;
 				border-collapse: collapse;
-				margin-bottom: 30px;
 				background-color: white;
+			}
+
+			thead {
+				position: sticky;
+				top: 0;
+				z-index: 1;
 			}
 
 			th {
@@ -55,6 +59,7 @@
 			td {
 				padding: 10px 12px;
 				border: 1px solid #ddd;
+				font-family: "Courier New", Courier, Monaco, monospace;
 			}
 
 			tr:nth-child(even) {
@@ -75,7 +80,7 @@
 			.sidebar {
 				display: flex;
 				flex-direction: column;
-				gap: 30px;
+				gap: 20px;
 			}
 
 			.formula-section {
@@ -107,13 +112,47 @@
 				color: #666;
 				font-style: italic;
 			}
-			/*
-			@media (max-width: 900px) {
-				.main-layout {
-					grid-template-columns: 1fr;
+			@media screen {
+				@media (max-width: 900px) {
+					.main-layout {
+						grid-template-columns: 1fr;
+					}
+					.container {
+						padding: 15px;
+					}
 				}
 			}
-			*/
+			@media print {
+				body {
+					margin: 0;
+					padding: 0;
+				}
+				.container {
+					box-shadow: none;
+					border: none;
+					zoom: 0.84;
+				}
+				thead {
+					position: relative;
+				}
+				th {
+					color: white;
+					background-color: #595959;
+					print-color-adjust: exact;
+				}
+				td {
+					padding: 0.25rem 0.5rem;
+				}
+				tr {
+					print-color-adjust: exact;
+				}
+				.formula-section {
+					background-color: #eaeaea;
+					border-left: 4px solid #353535;
+					print-color-adjust: exact;
+					padding: 15px;
+				}
+			}
 		</style>
 	</head>
 
