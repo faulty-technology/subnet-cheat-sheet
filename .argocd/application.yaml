@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: subnet-cheat-sheet-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  sources:
+    - repoURL: ghcr.io/faulty-technology/charts
+      chart: generic-app
+      targetRevision: "0.3.0"
+      helm:
+        valueFiles:
+          - $values/helm/values-defaults.yaml
+          - $values/helm/values-production.yaml
+        parameters:
+          - name: ingress.host
+            value: subnet.faulty.technology
+    - repoURL: https://github.com/faulty-technology/subnet-cheat-sheet.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: subnet-cheat-sheet-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,28 @@
+# =============================================================================
+# subnet-cheat-sheet - Project-specific base values
+# =============================================================================
+# Base configuration for the subnet-cheat-sheet static site.
+#
+# Values layering order:
+#   1. chart values.yaml (chart defaults)
+#   2. helm/values-defaults.yaml (this file - project base)
+#   3. helm/values-{environment}.yaml (environment overrides)
+# =============================================================================
+
+name: subnet-cheat-sheet
+
+container:
+  image: ghcr.io/faulty-technology/subnet-cheat-sheet
+  tag: latest
+  port: 8080
+  expose: true
+  servicePort: 80
+  healthPath: /
+  imagePullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 50m
+      memory: 32Mi
