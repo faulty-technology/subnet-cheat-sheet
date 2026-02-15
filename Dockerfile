@@ -1,5 +1,5 @@
 FROM nginxinc/nginx-unprivileged:alpine
 
-COPY src/index.html /usr/share/nginx/html/index.html
+COPY src/ /usr/share/nginx/html/
 
 EXPOSE 8080
