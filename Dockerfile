@@ -1,5 +1,16 @@
-FROM nginxinc/nginx-unprivileged:alpine
+FROM golang:1.24-alpine AS build
 
-COPY src/ /usr/share/nginx/html/
+WORKDIR /app
+COPY go.mod ./
+COPY main.go ./
+COPY src/ ./src/
+
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /server .
+
+FROM scratch
+
+COPY --from=build /server /server
 
 EXPOSE 8080
+
+ENTRYPOINT ["/server"]
